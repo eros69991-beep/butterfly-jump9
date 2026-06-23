@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>蝶之跳跃 · 手机优化版 V8</title>
+  <link rel="stylesheet" href="style.css?v=mobile8" />
+</head>
+<body>
+  <main class="page">
+    <section class="phone">
+      <canvas id="game"></canvas>
+
+      <div class="hud">
+        <div class="score-card"><span id="score">0</span></div>
+        <div class="title-card">蝶之跳跃</div>
+      </div>
+
+      <div id="startScreen" class="screen start-screen">
+        <div class="start-card">
+          <div class="mark">🦋</div>
+          <h1>蝶之跳跃</h1>
+          <p>长按蓄力，松手跳跃</p>
+          <button id="startBtn">开始游戏</button>
+        </div>
+      </div>
+
+      <div id="deadScreen" class="screen dead-screen hidden">
+        <div class="dead-card">
+          <div class="dead-face">×﹏×</div>
+          <h2>挑战失败</h2>
+          <p>回到上一个平台，继续挑战。</p>
+          <button id="reviveBtn" class="revive-btn">复活吧，我的爱人！</button>
+          <button id="restartBtn" class="restart-btn">重新开始</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="game.js?v=mobile8"></script>
+</body>
+</html>

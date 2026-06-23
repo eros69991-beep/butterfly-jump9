@@ -1,0 +1,203 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #09030f;
+  color: #fff;
+  font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+}
+
+/* V8：手机优化版。保持竖屏比例，禁止长按选中，防止移动端误触。 */
+.page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(130, 70, 190, 0.26), transparent 42%),
+    radial-gradient(circle at 50% 100%, rgba(70, 25, 110, 0.42), transparent 48%),
+    linear-gradient(180deg, #1a082c 0%, #08030f 100%);
+}
+
+.phone {
+  position: relative;
+  width: min(100vw, calc(100dvh * 390 / 720));
+  width: min(100vw, calc(100vh * 390 / 720));
+  aspect-ratio: 390 / 720;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden;
+  background: #130821;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 70px rgba(120, 60, 190, 0.35),
+    0 0 180px rgba(40, 5, 70, 0.65);
+  isolation: isolate;
+}
+
+canvas#game {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  background: #130821;
+}
+
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 92px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.score-card {
+  position: absolute;
+  left: 23px;
+  top: 18px;
+  width: 66px;
+  height: 66px;
+  border-radius: 22px;
+  background: rgba(25, 12, 42, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#score {
+  font-size: 31px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.title-card {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(35, 18, 55, 0.34);
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 0 10px rgba(218, 160, 255, 0.8);
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(8, 3, 14, 0.64), rgba(8, 3, 14, 0.76));
+  backdrop-filter: blur(8px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.start-card,
+.dead-card {
+  width: min(310px, calc(100vw - 48px));
+  border-radius: 28px;
+  padding: 30px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(50, 23, 76, 0.88), rgba(22, 10, 36, 0.94));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.45), 0 0 38px rgba(183, 96, 255, 0.24);
+}
+
+.mark {
+  font-size: 42px;
+  filter: drop-shadow(0 0 16px rgba(230, 160, 255, 0.9));
+}
+
+.start-card h1,
+.dead-card h2 {
+  margin: 8px 0 8px;
+  font-size: 30px;
+}
+
+.start-card p,
+.dead-card p {
+  margin: 0 0 22px;
+  opacity: 0.72;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 15px 16px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  background: linear-gradient(135deg, #835cff, #ff79d3);
+  box-shadow: 0 12px 30px rgba(255, 100, 220, 0.25);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.revive-btn {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.restart-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.dead-face {
+  font-size: 34px;
+  margin-bottom: 4px;
+}
+
+
+/* V8 手机端防误触：禁止长按选中、拖拽、缩放手势 */
+html, body, .page, .phone, canvas, .hud, .screen, button {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+.page, .phone, canvas#game {
+  touch-action: none;
+  -ms-touch-action: none;
+}
+
+button {
+  touch-action: manipulation;
+}
